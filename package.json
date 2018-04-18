@@ -4,7 +4,8 @@
   "description": "Create a service using node to watch a directory for pdfs created. When pdfs created in this dir, they are to be transfered via ftp to another location.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/app.js"
   },
   "repository": {
     "type": "git",
