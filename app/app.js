@@ -6,6 +6,13 @@ var ftp = new PromiseFtp();
 //queue for items to send to ftp remote dir
 var queue = [];
 
+//ftp server info and credentials
+var serverInfo = {
+  host: "ftp.dlptest.com",
+  user: "dlpuser@dlptest.com",
+  password: "eiTqR7EMZD5zy7M"
+};
+
 function sendFile() {
   console.log("Sendfile Running");
   //check if something is in queue
@@ -28,13 +35,6 @@ function sendFile() {
 
 //Setting interval to check if something needs to be sent
 setInterval(sendFile, 3500);
-
-//ftp server info and credentials
-var serverInfo = {
-  host: "ftp.dlptest.com",
-  user: "dlpuser@dlptest.com",
-  password: "eiTqR7EMZD5zy7M"
-};
 
 // start ftp with promise into watcher
 ftp.connect(serverInfo).then(function (serverMessage) {
