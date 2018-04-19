@@ -43,19 +43,27 @@ ftp.connect(serverInfo).then(function (serverMessage) {
   console.log(serverMessage);
 
   // set chokidar to watch watchedDir
-  chokidar.watch('app/watchedDir/*', {ignored: /(^|[\/\\])\../}).on('all', (event, path) => {
-
-    //output event and path
-    console.log(event, path);
-    if (event == "add") {
-      let filename = path.split('/')[2];
-      let fileInfo = {
-        path: path,
-        filename: filename
-      };
-      queue.push(fileInfo);
+  chokidar.watch('app/watchedDir/*', {
+    ignored: /(^|[\/\\])\../,
+    //
+    awaitWriteFinish: {
+      stabilityThreshold: 2000,
+      pollInterval: 100
     }
-  });
+  })
+    .on('all', (event, path) => {
+
+      //output event and path
+      console.log(event, path);
+      if (event == "add") {
+        let filename = path.split('/')[2];
+        let fileInfo = {
+          path: path,
+          filename: filename
+        };
+        queue.push(fileInfo);
+      }
+    });
 });
 
 console.log("Ayyyye");
